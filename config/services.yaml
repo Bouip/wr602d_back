@@ -26,4 +26,9 @@ services:
         tags:
             - { name: api_platform.doctrine.orm.query_extension.collection }
             - { name: api_platform.doctrine.orm.query_extension.item }
-            
+
+    App\HttpClient\MailerClient:
+        arguments:
+            $mailerUrl: '%env(MAILER_SERVICE_URL)%'
+            $mailerApiKey: '%env(MAILER_API_KEY_NAME)%'
+            $mailerApiKeyValue: '%env(MAILER_API_KEY_VALUE)%'

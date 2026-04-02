@@ -10,6 +10,7 @@ use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use App\Repository\ScoreRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ScoreRepository::class)]
 #[ApiResource(
@@ -39,12 +40,16 @@ class Score
 
     #[ORM\Column]
     #[Groups(['score:read', 'score:write'])]
+    #[Assert\NotBlank(message: 'Les points sont obligatoires')]
+    #[Assert\Positive(message: 'Les points doivent être positifs')]
     private ?int $points = null;
 
     #[ORM\Column]
     #[Groups(['score:read', 'score:write'])]
+    #[Assert\NotBlank(message: 'La durée est obligatoire')]
+    #[Assert\Positive(message: 'La durée doit être positive')]
     private ?int $duration = null;
-
+    
     #[ORM\Column]
     #[Groups(['score:read'])]
     private ?\DateTimeImmutable $createdAt = null;
