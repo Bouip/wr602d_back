@@ -1,0 +1,42 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block content %}
+    <h1 class="page-title">DASHBOARD</h1>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">TOTAL JOUEURS</div>
+            <div class="stat-value">{{ totalUsers }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">TOTAL SCORES</div>
+            <div class="stat-value">{{ totalScores }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">MEILLEUR SCORE</div>
+            <div class="stat-value gold">{{ bestScore ? bestScore.points : 0 }}</div>
+        </div>
+    </div>
+
+    <h2 class="section-title">TOP 10 SCORES</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>JOUEUR</th>
+                <th>SCORE</th>
+                <th>DATE</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in scores %}
+            <tr>
+                <td class="{{ loop.index == 1 ? 'gold' : '' }}">{{ loop.index }}</td>
+                <td>{{ score.user.username }}</td>
+                <td class="gold">{{ score.points }} PTS</td>
+                <td>{{ score.createdAt|date('d/m/Y H:i') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

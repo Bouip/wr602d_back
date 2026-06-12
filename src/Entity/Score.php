@@ -7,6 +7,8 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use App\Repository\ScoreRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
@@ -30,6 +32,8 @@ use Symfony\Component\Validator\Constraints as Assert;
     denormalizationContext: ['groups' => ['score:write']],
 )]
 #[ApiFilter(OrderFilter::class, properties: ['points' => 'DESC', 'createdAt' => 'DESC'])]
+#[ApiFilter(SearchFilter::class, properties: ['user.id' => 'exact'])]
+#[ApiFilter(RangeFilter::class, properties: ['points'])]
 class Score
 {
     #[ORM\Id]

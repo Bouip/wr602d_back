@@ -1,0 +1,28 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block content %}
+    <h1 class="page-title">SCORES</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>JOUEUR</th>
+                <th>SCORE</th>
+                <th>DURÉE</th>
+                <th>DATE</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in scores %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ score.user.username }}</td>
+                <td class="gold">{{ score.points }} PTS</td>
+                <td>{{ score.duration }}s</td>
+                <td>{{ score.createdAt|date('d/m/Y H:i') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

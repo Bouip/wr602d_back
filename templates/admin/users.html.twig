@@ -1,0 +1,36 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block content %}
+    <h1 class="page-title">JOUEURS</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>PSEUDO</th>
+                <th>EMAIL</th>
+                <th>RÔLE</th>
+                <th>SCORES</th>
+                <th>INSCRIT LE</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% if 'ROLE_ADMIN' in user.roles %}
+                        <span class="badge badge-admin">ADMIN</span>
+                    {% else %}
+                        <span class="badge badge-user">JOUEUR</span>
+                    {% endif %}
+                </td>
+                <td class="gold">{{ user.scores|length }}</td>
+                <td>{{ user.createdAt|date('d/m/Y') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

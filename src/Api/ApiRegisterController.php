@@ -3,6 +3,7 @@
 namespace App\Api;
 
 use App\Entity\User;
+use App\HttpClient\MailerClient;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,6 +18,7 @@ class ApiRegisterController extends AbstractController
         private EntityManagerInterface $entityManager,
         private UserPasswordHasherInterface $passwordHasher,
         private SerializerInterface $serializer,
+        private MailerClient $mailerClient,
     ) {}
 
     #[Route(
@@ -32,7 +34,7 @@ class ApiRegisterController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        if (!isset($data['email'], $data['password'], $data['username'])) {
+        if (!isset($data['email'], $data['plainPassword'], $data['username'])) {
             return new JsonResponse(['message' => 'Missing required fields'], 400);
         }
 
@@ -40,12 +42,25 @@ class ApiRegisterController extends AbstractController
         $user->setEmail($data['email']);
         $user->setUsername($data['username']);
         $user->setPassword(
-            $this->passwordHasher->hashPassword($user, $data['password'])
+            $this->passwordHasher->hashPassword($user, $data['plainPassword'])
         );
         $user->setRoles(['ROLE_USER']);
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
+
+        try {
+            $this->mailerClient->sendEmail(
+                $data['email'],
+                'Bienvenue sur Vroum Vroum !',
+                sprintf(
+                    'Bonjour %s, bienvenue sur Vroum Vroum ! Ton compte a bien été créé. Bonne course !',
+                    $data['username']
+                )
+            );
+        } catch (\Exception $e) {
+            // bloque pas l'inscription si le mail échoue
+        }
 
         return new JsonResponse(['message' => 'User created successfully'], 201);
     }

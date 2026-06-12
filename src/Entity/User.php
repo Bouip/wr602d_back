@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
+use App\Api\ApiRegisterController;
 use App\Repository\UserRepository;
+use App\Validator\UniqueUsername;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,7 +21,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Post(
             uriTemplate: '/user/register',
+            controller: ApiRegisterController::class,
             description: 'Inscription d\'un utilisateur',
+            deserialize: false,
         ),
     ],
     normalizationContext: ['groups' => ['user:read']],
@@ -43,6 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         minMessage: 'Le nom d\'utilisateur doit faire au moins 3 caractères',
         maxMessage: 'Le nom d\'utilisateur ne doit pas dépasser 30 caractères',
     )]
+    #[UniqueUsername]
     private ?string $username = null;
 
     #[ORM\Column(length: 255, unique: true)]
@@ -73,14 +78,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->createdAt = new \DateTimeImmutable();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
+    public function getId(): ?int 
+    { 
+        return $this->id; 
     }
 
-    public function getUsername(): ?string
-    {
-        return $this->username;
+    public function getUsername(): ?string 
+    { 
+        return $this->username; 
     }
 
     public function setUsername(string $username): static
@@ -89,9 +94,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
+    public function getEmail(): ?string 
+    { 
+        return $this->email; 
     }
 
     public function setEmail(string $email): static
@@ -100,9 +105,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->email;
+    public function getUserIdentifier(): string 
+    { 
+        return (string) $this->email; 
     }
 
     public function getRoles(): array
@@ -118,9 +123,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPassword(): ?string
-    {
-        return $this->password;
+    public function getPassword(): ?string 
+    { 
+        return $this->password; 
     }
 
     public function setPassword(string $password): static
@@ -131,9 +136,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void {}
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
+    public function getCreatedAt(): ?\DateTimeImmutable 
+    { 
+        return $this->createdAt; 
     }
 
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
@@ -142,10 +147,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getScores(): Collection
+    public function getScores(): Collection 
     {
-        return $this->scores;
-    }
+         return $this->scores; 
+     }
 
     public function addScore(Score $score): static
     {
