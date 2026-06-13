@@ -1,0 +1,202 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Vroum Vroum API
+meta:
+  id: wrk_50a93814a84f49b3af860275cc6f307e
+  created: 1781355356894
+  modified: 1781355356894
+  description: ""
+collection:
+  - url: http://localhost:8000/api/user/register
+    name: Register
+    meta:
+      id: req_975016aef49244e882f420bc1221d4dc
+      created: 1781355391026
+      modified: 1781355534251
+      isPrivate: false
+      description: ""
+      sortKey: -1781355391026
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "username": "testuser",
+          "email": "test@example.com",
+          "plainPassword": "password123"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.6.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/api/login_check
+    name: Login
+    meta:
+      id: req_9ca79de81f4c42bfa576fb49414e0ae2
+      created: 1781356032549
+      modified: 1781356086957
+      isPrivate: false
+      description: ""
+      sortKey: -1781356032549
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "email": "test@test.fr",
+          "password": "password123"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.6.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/api/scores/add
+    name: Add Score
+    meta:
+      id: req_a56aff10706f47cc9b1ab3e382fae380
+      created: 1781356120356
+      modified: 1781357752947
+      isPrivate: false
+      description: ""
+      sortKey: -1781356120356
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "points": 1500,
+          "duration": 120
+        }
+    headers:
+      - name: Content-Type
+        value: application/ld+json
+      - name: User-Agent
+        value: insomnia/12.6.0
+        description: ""
+        disabled: false
+      - name: Authorization
+        value: " Bearer {{ _['token '].token }}"
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8000/api/scores
+    name: Get Scores
+    meta:
+      id: req_e9a3eeaba28d4d4f866abc80529aa544
+      created: 1781356751180
+      modified: 1781356791971
+      isPrivate: false
+      description: ""
+      sortKey: -1781356751180
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/12.6.0
+        description: ""
+        disabled: false
+      - name: Authorization
+        value: Bearer {{ _['token '].token }}
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8001/send-mail
+    name: Send Mail
+    meta:
+      id: req_f9abfd373b524a98aadcab59b4890e72
+      created: 1781356805051
+      modified: 1781356854480
+      isPrivate: false
+      description: ""
+      sortKey: -1781356805051
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "to": "test@test.fr",
+          "subject": "Test mail",
+          "message": "Bonjour depuis Vroum Vroum !"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.6.0
+        description: ""
+        disabled: false
+      - name: X-API-KEY
+        value: supersecretkey
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_02882c3d28f6050ae9843d95538e61ad576fa3b1
+    created: 1781355356900
+    modified: 1781357809903
+  cookies:
+    - id: c1eac0e2-abc9-4532-9fe5-489d547d8380
+      key: sf_redirect
+      value: "%7B%22token%22%3A%227f37c3%22%2C%22route%22%3A%22_api_%5C%2Fuser%5C%2Fr\
+        egister_post%22%2C%22method%22%3A%22POST%22%2C%22controller%22%3A%22App\
+        %5C%5CApi%5C%5CApiRegisterController%22%2C%22status_code%22%3A201%2C%22\
+        status_text%22%3A%22Created%22%7D"
+      domain: localhost
+      path: /
+      secure: false
+      httpOnly: true
+      hostOnly: true
+environments:
+  name: Base Environment
+  meta:
+    id: env_02882c3d28f6050ae9843d95538e61ad576fa3b1
+    created: 1781355356897
+    modified: 1781357198062
+    isPrivate: false
+  data:
+    "token ":
+      token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3ODEzNTcxNjUsImV4cCI6MTc4MTM2MDc2NSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoidGVzdEB0ZXN0LmZyIn0.a9-ZqZOVs2CHoNIb9pe92ozC0Hd0pobF6saFFyFr7XbrrHUClMY-9TKaOYDM8AKUnOk3gaT90XWKAQyDbW_RGgO--N6d6DxShAIZKMINrzJ3gp1QQqXixl1mZ8EpEWOEGhHuQuK6mxwtYUbSV7YhFSIoohCROP__e6__XR0pWCXOXf84M97ww1PucFGAmrcTlBwcvtjyw5-kh9hTNWxiH3lwqzPz0Ls2rp2EDJsznTOe5-YxfzLLcyxnNxqCb8G3IXidRPZlIP2G4Tool1CKJpCsuWdp7WwhE4gwlrycZyvk5lLLM1OUtwm63istoNxgni3fQLnCmaIUN0EvYzg9vg
