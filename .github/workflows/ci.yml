@@ -38,17 +38,17 @@ jobs:
       - run: composer install --no-progress
       - name: Setup env
         run: |
-          echo 'DATABASE_URL="mysql://root:root@127.0.0.1:3306/wr602d_test?serverVersion=8.0.37"' > .env.test.local
-          echo 'MAILER_SERVICE_URL=http://localhost:8001' >> .env.test.local
-          echo 'MAILER_API_KEY_NAME=X-API-KEY' >> .env.test.local
-          echo 'MAILER_API_KEY_VALUE=supersecretkey' >> .env.test.local
-          echo 'JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem' >> .env.test.local
-          echo 'JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem' >> .env.test.local
-          echo 'JWT_PASSPHRASE=test' >> .env.test.local
-      - run: php bin/console doctrine:database:create --env=test
-      - run: php bin/console doctrine:migrations:migrate --no-interaction --env=test
-      - run: php bin/console lexik:jwt:generate-keypair --env=test
-      - run: php bin/console app:create-test-user --env=test
+          echo 'DATABASE_URL="mysql://root:root@127.0.0.1:3306/wr602d_test?serverVersion=8.0.37"' > .env.local
+          echo 'MAILER_SERVICE_URL=http://localhost:8001' >> .env.local
+          echo 'MAILER_API_KEY_NAME=X-API-KEY' >> .env.local
+          echo 'MAILER_API_KEY_VALUE=supersecretkey' >> .env.local
+          echo 'JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem' >> .env.local
+          echo 'JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem' >> .env.local
+          echo 'JWT_PASSPHRASE=test' >> .env.local
+      - run: php bin/console doctrine:database:create
+      - run: php bin/console doctrine:migrations:migrate --no-interaction
+      - run: php bin/console lexik:jwt:generate-keypair
+      - run: php bin/console app:create-test-user
       - name: Install Symfony CLI
         run: curl -sS https://get.symfony.com/cli/installer | bash && echo "$HOME/.symfony5/bin" >> $GITHUB_PATH
       - name: Start Symfony server
