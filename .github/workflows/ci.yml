@@ -45,7 +45,7 @@ jobs:
           echo 'JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem' >> .env.local
           echo 'JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem' >> .env.local
           echo 'JWT_PASSPHRASE=test' >> .env.local
-      - run: php bin/console doctrine:database:create
+      - run: php bin/console doctrine:database:create --if-not-exists
       - run: php bin/console doctrine:migrations:migrate --no-interaction
       - run: php bin/console lexik:jwt:generate-keypair
       - run: php bin/console app:create-test-user
