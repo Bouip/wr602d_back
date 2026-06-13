@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VROUM VROUM — Score de {{ score.user.username }}</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@700;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0d0d0d;
+            color: #fff;
+            font-family: 'Barlow Condensed', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px),
+                repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px);
+        }
+
+        .card {
+            background: #1a1a1a;
+            border: 3px solid #FFD700;
+            border-radius: 4px;
+            padding: 50px 60px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 48px;
+            color: #FFD700;
+            letter-spacing: 6px;
+            transform: skewX(-4deg);
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 8px;
+        }
+
+        .username {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 36px;
+            color: #fff;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+        }
+
+        .score-value {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 100px;
+            color: #FFD700;
+            letter-spacing: 6px;
+            line-height: 1;
+            text-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+        }
+
+        .score-label {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 24px;
+            color: rgba(255,215,0,0.5);
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+        }
+
+        .date {
+            font-size: 14px;
+            color: rgba(255,255,255,0.25);
+            letter-spacing: 2px;
+            margin-top: 20px;
+        }
+
+        .play-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 14px 40px;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 22px;
+            letter-spacing: 3px;
+            background: #FFD700;
+            color: #000;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: all 0.15s;
+        }
+
+        .play-btn:hover {
+            background: #ffe44d;
+            transform: translateY(-2px);
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #333;
+            margin: 24px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">🚕 VROUM VROUM</div>
+
+        <div class="label">SCORE DE</div>
+        <div class="username">{{ score.user.username }}</div>
+
+        <hr class="divider">
+
+        <div class="score-value">{{ score.points }}</div>
+        <div class="score-label">POINTS</div>
+
+        <hr class="divider">
+
+        <div class="label">DURÉE</div>
+        <div class="username">{{ score.duration }}s</div>
+
+        <div class="date">{{ score.createdAt|date('d/m/Y à H:i', 'Europe/Paris') }}</div>
+
+        <a href="http://localhost:5173" class="play-btn">JOUER →</a>
+    </div>
+</body>
+</html>

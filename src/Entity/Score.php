@@ -53,10 +53,14 @@ class Score
     #[Assert\NotBlank(message: 'La durée est obligatoire')]
     #[Assert\Positive(message: 'La durée doit être positive')]
     private ?int $duration = null;
-    
+
     #[ORM\Column]
     #[Groups(['score:read'])]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(length: 255, unique: true, nullable: true)]
+    #[Groups(['score:read'])]
+    private ?string $shareToken = null;
 
     #[ORM\ManyToOne(inversedBy: 'scores')]
     #[ORM\JoinColumn(nullable: false)]
@@ -66,6 +70,7 @@ class Score
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->shareToken = bin2hex(random_bytes(16));
     }
 
     public function getId(): ?int
@@ -103,6 +108,17 @@ class Score
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getShareToken(): ?string
+    {
+        return $this->shareToken;
+    }
+
+    public function setShareToken(?string $shareToken): static
+    {
+        $this->shareToken = $shareToken;
         return $this;
     }
 
