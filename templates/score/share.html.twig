@@ -5,128 +5,197 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VROUM VROUM — Score de {{ score.user.username }}</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: #0d0d0d;
-            color: #fff;
-            font-family: 'Barlow Condensed', sans-serif;
+            background: #f5f5f5;
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image:
-                repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px),
-                repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px);
+            padding: 20px;
         }
 
         .card {
-            background: #1a1a1a;
-            border: 3px solid #FFD700;
-            border-radius: 4px;
-            padding: 50px 60px;
-            text-align: center;
-            max-width: 500px;
-            width: 90%;
+            background: #1a1a2e;
+            border-radius: 20px;
+            width: 420px;
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.15);
         }
 
-        .logo {
+        .card-hero {
+            background: #1a1a2e;
+            padding: 28px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(255,77,141,0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(255,217,61,0.1) 0%, transparent 40%);
+        }
+
+        .card-hero::after {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .brand {
+            position: relative; z-index: 1;
+            margin-bottom: 20px;
+        }
+
+        .brand-logo {
             font-family: 'Bebas Neue', cursive;
             font-size: 48px;
-            color: #FFD700;
-            letter-spacing: 6px;
-            transform: skewX(-4deg);
-            display: inline-block;
-            margin-bottom: 30px;
-        }
-
-        .label {
-            font-size: 11px;
-            letter-spacing: 4px;
-            color: rgba(255,255,255,0.3);
-            margin-bottom: 8px;
-        }
-
-        .username {
-            font-family: 'Bebas Neue', cursive;
-            font-size: 36px;
             color: #fff;
-            letter-spacing: 4px;
-            margin-bottom: 30px;
+            letter-spacing: 5px;
+            line-height: 0.9;
+            text-shadow: 0 0 40px rgba(255,77,141,0.3);
         }
 
-        .score-value {
+        .score-block {
+            position: relative; z-index: 1;
+        }
+
+        .player-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .player-name {
             font-family: 'Bebas Neue', cursive;
-            font-size: 100px;
-            color: #FFD700;
-            letter-spacing: 6px;
+            font-size: 32px;
+            color: #fff;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+        }
+
+        .score-num {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 80px;
+            color: #FF4D8D;
+            letter-spacing: 4px;
             line-height: 1;
-            text-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+            text-shadow: 0 0 40px rgba(255,77,141,0.4);
+            display: block;
         }
 
         .score-label {
             font-family: 'Bebas Neue', cursive;
-            font-size: 24px;
-            color: rgba(255,215,0,0.5);
+            font-size: 18px;
+            color: rgba(255,77,141,0.5);
             letter-spacing: 4px;
-            margin-bottom: 30px;
         }
 
-        .date {
-            font-size: 14px;
-            color: rgba(255,255,255,0.25);
+        .card-body {
+            background: #fff;
+            padding: 20px 32px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .stat {
+            flex: 1;
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #bbb;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 26px;
+            color: #1a1a2e;
             letter-spacing: 2px;
-            margin-top: 20px;
         }
 
         .play-btn {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 14px 40px;
+            display: block;
+            width: 100%;
+            padding: 16px;
             font-family: 'Bebas Neue', cursive;
-            font-size: 22px;
-            letter-spacing: 3px;
-            background: #FFD700;
-            color: #000;
+            font-size: 24px;
+            letter-spacing: 4px;
+            background: #1a1a2e;
+            color: #fff;
             text-decoration: none;
-            border-radius: 2px;
+            text-align: center;
+            border-radius: 12px;
             transition: all 0.15s;
+            box-shadow: 0 4px 0 #FF4D8D;
         }
 
         .play-btn:hover {
-            background: #ffe44d;
             transform: translateY(-2px);
+            box-shadow: 0 6px 0 #FF4D8D;
         }
 
-        .divider {
-            border: none;
-            border-top: 1px solid #333;
-            margin: 24px 0;
+        .play-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #FF4D8D;
         }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="logo">🚕 VROUM VROUM</div>
+        <div class="card-hero">
+            <div class="brand">
+                <div class="brand-logo">VROUM<br>VROUM</div>
+            </div>
+            <div class="score-block">
+                <span class="player-label">Score de</span>
+                <div class="player-name">{{ score.user.username }}</div>
+                <span class="score-num">{{ score.points }}</span>
+                <div class="score-label">Points</div>
+            </div>
+        </div>
 
-        <div class="label">SCORE DE</div>
-        <div class="username">{{ score.user.username }}</div>
+        <div class="card-body">
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-label">Durée</span>
+                    <span class="stat-value">{{ score.duration }}s</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Date</span>
+                    <span class="stat-value" style="font-size:16px">{{ score.createdAt|date('d/m/Y', 'Europe/Paris') }}</span>
+                </div>
+            </div>
 
-        <hr class="divider">
-
-        <div class="score-value">{{ score.points }}</div>
-        <div class="score-label">POINTS</div>
-
-        <hr class="divider">
-
-        <div class="label">DURÉE</div>
-        <div class="username">{{ score.duration }}s</div>
-
-        <div class="date">{{ score.createdAt|date('d/m/Y à H:i', 'Europe/Paris') }}</div>
-
-        <a href="http://localhost:5173" class="play-btn">JOUER →</a>
+            <a href="http://localhost:5173" class="play-btn">Jouer !</a>
+        </div>
     </div>
 </body>
 </html>

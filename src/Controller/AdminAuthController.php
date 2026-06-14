@@ -51,4 +51,10 @@ class AdminAuthController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
     }
+
+    #[Route('/', name: 'app_home')]
+    public function index(): Response
+    {
+        return $this->redirect('http://localhost:5173');
+    }
 }
